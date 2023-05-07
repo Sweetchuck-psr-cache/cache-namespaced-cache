@@ -12,9 +12,10 @@ declare(strict_types = 1);
  * with this source code in the file LICENSE.
  */
 
-namespace Cache\Namespaced\Tests;
+namespace Cache\Namespaced\Tests\Acceptance;
 
 use Cache\Namespaced\NamespacedCachePool;
+use Cache\Namespaced\Tests\Helper\HelperInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Cache\CacheItemInterface;
 
@@ -26,7 +27,7 @@ use Psr\Cache\CacheItemInterface;
 class NamespacedCachePoolTest extends TestCase
 {
     /**
-     * @return \Cache\Namespaced\Tests\HelperInterface&\PHPUnit\Framework\MockObject\MockObject
+     * @return \Cache\Namespaced\Tests\Helper\HelperInterface&\PHPUnit\Framework\MockObject\MockObject
      */
     private function getHierarchyCacheStub()
     {

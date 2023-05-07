@@ -41,6 +41,14 @@ class NamespacedCachePool implements HierarchicalPoolInterface
     private function prefixValue(string &$key): static
     {
         // |namespace|key
+        if (str_starts_with($key, HierarchicalPoolInterface::HIERARCHY_SEPARATOR)) {
+            $key = HierarchicalPoolInterface::HIERARCHY_SEPARATOR
+                .$this->namespace
+                .$key;
+
+            return $this;
+        }
+
         $key = HierarchicalPoolInterface::HIERARCHY_SEPARATOR
             .$this->namespace
             .HierarchicalPoolInterface::HIERARCHY_SEPARATOR

@@ -12,9 +12,10 @@ declare(strict_types = 1);
  * with this source code in the file LICENSE.
  */
 
-namespace Cache\Namespaced\Tests;
+namespace Cache\Namespaced\Tests\Acceptance;
 
 use Cache\Adapter\Memcached\MemcachedCachePool;
+use Cache\Adapter\PHPArray\ArrayCachePool;
 use Cache\Namespaced\NamespacedCachePool;
 use PHPUnit\Framework\TestCase;
 
@@ -23,17 +24,19 @@ use PHPUnit\Framework\TestCase;
  */
 class IntegrationTest extends TestCase
 {
-    private ?MemcachedCachePool $cache;
+    private ?ArrayCachePool $cache;
 
     protected function setUp(): void
     {
-        $cache = new \Memcached();
-        $cache->addServer(
-            getenv('CACHE_MEMCACHE_SERVER1_HOST') ?: '127.0.0.1',
-            (int) (getenv('CACHE_MEMCACHE_SERVER1_PORT')) ?: 11211,
-        );
+        //$cache = new \Memcached();
+        //$cache->addServer(
+        //    getenv('CACHE_MEMCACHE_SERVER1_HOST') ?: '127.0.0.1',
+        //    (int) (getenv('CACHE_MEMCACHE_SERVER1_PORT')) ?: 11211,
+        //);
+        //
+        //$this->cache = new MemcachedCachePool($cache);
 
-        $this->cache = new MemcachedCachePool($cache);
+        $this->cache = new ArrayCachePool();
     }
 
     protected function tearDown(): void
@@ -77,6 +80,8 @@ class IntegrationTest extends TestCase
         $nsPool->save($item);
 
         static::assertTrue($nsPool->hasItem('key'));
+
+        static::assertTrue($this->cache->hasItem("|$namespace|key"));
         static::assertFalse($this->cache->hasItem('key'));
     }
 

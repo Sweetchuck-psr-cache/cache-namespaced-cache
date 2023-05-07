@@ -12,7 +12,7 @@ declare(strict_types = 1);
  * with this source code in the file LICENSE.
  */
 
-namespace Cache\Namespaced\Tests;
+namespace Cache\Namespaced\Tests\Helper;
 
 use Cache\Hierarchy\HierarchicalPoolInterface;
 
